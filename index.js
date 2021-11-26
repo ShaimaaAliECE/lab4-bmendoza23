@@ -24,16 +24,16 @@ quiz.get("/questions", (req,res) =>
 
 quiz.post("/mark", (req,res) =>
     {
-        const userChoice = req.body["id"];     //Format of user's choice (in quiz.js as q#a#)
+        const userChoice    = req.body["id"];  //Format of user's choice (in quiz.js as q#a#)
         const questionNum   = +userChoice[1];  //Second character in string (q_) is question number, converts to a number
         const answerNum     = +userChoice[3];  //Fourth character in strung (a_) is answer number, converts to number
     
         //Checking questions JSON for correct answer
-        let result =
+        let feedback =
             questions[questionNum - 1]["answerIndex"] === answerNum - 1
             ? "Correct!" : "Incorrect";
             
-        res.send(result);   //Sending correct answer in the response
+        res.send(feedback);   //Sending correct answer in the response
     }
 );
 
@@ -54,7 +54,7 @@ quiz.post("/submit", (req,res) =>
         for(let i = 0; i<totQs; i++)
         {
             //Check if radio button answer (radio button name) is same as the given correct answer in the questions JSON
-            if(req.body[`q${q+1}`] === questions[q]["options"][correct[q]])
+            if(req.body[`q${i+1}`] === questions[i]["options"][correct[i]])
                 mark++;    //Increases mark
         }
 

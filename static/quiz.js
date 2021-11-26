@@ -17,11 +17,8 @@ xReq.onreadystatechange = function ()
                 content += `
                 <div    id      = "question${i+1}"
                         style   =  "margin: 0.5rem 0;
-                                    padding: 0.5 rem;
-                                    border: 2px solid black;
-                                    border-radius: 1rem;">
-                <p><b>${i+1}${q.stem}</b></p>
-                `;
+                                    padding: 0.5 rem;">
+                <p><b>${i+1}. ${q.stem}</b></p>`;
 
                 //Loops over each question answer option
                 for (const [num, opt] of q.options.entries())
@@ -37,11 +34,6 @@ xReq.onreadystatechange = function ()
                     <br>
                     `;
                 }
-                content += `
-                    <div    id      = "feedback${i+1}"
-                            style   = "margin-top: 1rem">
-                    </div>
-                <div>`;
             }
             
             //Submit Button
@@ -49,28 +41,27 @@ xReq.onreadystatechange = function ()
                     `<button style   = "margin-top: 1rem">Submit</button>
                     </form>`;
 
-            //Set content to quiz in the html
+            //Set content to quiz in the html (questions + submit button)
             $("#quiz").html(content);
 
             //Detecting change in radio buttons 
-            $(`input[type="radio]`).change(function()
+            $(`input[type="radio"]`).change(function()
             {
-                //Radio Button Checke 
+                //Radio Button Checked 
                 if ($(this).is(":checked"))
                 {
                     let clicked = this;
                     let answerRequest = new XMLHttpRequest();  //New request for post
                     answerRequest.onreadystatechange = function()
                     {
-                        if(this.ready == 4 && this.status == 200)
+                        if(this.readyState == 4 && this.status == 200)
                         {
-                            //Alerting user feedback
-                            let fb = this.responseText;
-                            $(`#feedback${clicked.id[1]}`).html(fb)
+                            let fb = this.responseText; //Variable holds response
+                            alert(fb);                  //Alerts user of correct/incorrect button click
                         }
                     };
 
-                    //Option to hold clicked radio button's id
+                    //Object to hold clicked radio button's id
                     let clickedObject =
                     {
                         id: clicked.id,
@@ -80,7 +71,7 @@ xReq.onreadystatechange = function ()
                     let jsonClicked = JSON.stringify(clickedObject);
 
                     //POST request
-                    answerRequest.open("POST", "/check", true);
+                    answerRequest.open("POST", "/mark", true);
                     answerRequest.setRequestHeader("Content-Type", "application/json");
                     //Sending JSON object in request
                     answerRequest.send(jsonClicked);
