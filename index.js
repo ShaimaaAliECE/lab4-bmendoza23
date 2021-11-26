@@ -1,18 +1,18 @@
-const questions = require('./questions.json');      //importing questions json file
 const express = require('express');
+const questions = require('./questions.json');
 
-const app = express();
+const quiz = express();
 
 //Serve static content
-app.use(express.static('static'));
+quiz.use(express.static('static'));
 
-app.use(express.urlencoded({
+quiz.use(express.urlencoded({
         extended: true
     }));
 
 //Handling quiz page
-app.post('/quiz', (req,res) => {
+quiz.post('/quiz', (req,res) => {
     
 });
 
-app.listen(2000);   //Currently listening on port 2000
+quiz.listen(2000);   //Currently listening on port 2000
