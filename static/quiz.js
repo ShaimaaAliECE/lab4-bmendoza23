@@ -19,8 +19,7 @@ xReq.onreadystatechange = function ()
                         style   =  "margin: 0.5rem 0;
                                     padding: 0.5 rem;
                                     border: 2px solid black;
-                                    border-radius: 1rem;
-                                    background-color: lightgray">
+                                    border-radius: 1rem;">
                 <p><b>${i+1}${q.stem}</b></p>
                 `;
 
