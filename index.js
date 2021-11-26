@@ -71,4 +71,4 @@ quiz.post("/submit", (req,res) =>
     }
 );
 
-quiz.listen(2000);   //Currently listening on port 2000
+quiz.listen(80);   //Currently listening on port 80
